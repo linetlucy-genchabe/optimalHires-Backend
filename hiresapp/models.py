@@ -37,7 +37,7 @@ class Jobseeker(models.Model):
         return self.fullname
 
 class Employer(models.Model):
-    eomployerId = models.AutoField(primary_key=True,default=None)
+    employerId = models.AutoField(primary_key=True,default=None)
     name = models.CharField(max_length=100)
     contact = models.CharField(max_length=50)
     image = CloudinaryField('image')

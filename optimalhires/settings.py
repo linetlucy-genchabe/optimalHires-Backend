@@ -73,6 +73,12 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ALLOWED_ORIGINS =[
+#     'http://localhost:4200',
+#     'https://optimal-hires.herokuapp.com',
+#     'https://linetlucy-genchabe.github.io',
+# ]
 ROOT_URLCONF = 'optimalhires.urls'
 
 TEMPLATES = [

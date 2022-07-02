@@ -1,34 +1,46 @@
 from rest_framework import serializers
 from .models import *
+# from django.contrib.auth.models import User
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields=[
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'phone_number',
+            'id',
 
-class JobSerializer(serializers.ModelSerializer):
+        ]
+
+class JobSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Job
         fields = ('jobId','title', 'description', 'location', 'job_type', 'job_category','last_date', 'company_name', 'company_description', 'website','created_at',)
 
         
-class JobseekerSerializer(serializers.ModelSerializer):
+class JobseekerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Jobseeker
         fields = ('jobseekerId','fullname', 'image', 'gender','resume',)
 
 
         
-class JobtypeSerializer(serializers.ModelSerializer):
+class JobtypeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Jobtype
         fields = ('jobtypeId','name')
 
 
         
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
         fields = ('CategoryId','name')
 
         
-class EmployerSerializer(serializers.ModelSerializer):
+class EmployerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Employer
         fields = ('employerId','name', 'contact', 'image','description',)
