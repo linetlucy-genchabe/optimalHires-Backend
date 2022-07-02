@@ -79,6 +79,15 @@ CORS_ORIGIN_ALLOW_ALL = True
 #     'https://optimal-hires.herokuapp.com',
 #     'https://linetlucy-genchabe.github.io',
 # ]
+
+REST_FRAMEWORK={
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES':(
+        # 'rest_framework.permissions.IsAuthenticated'
+    )
+}
 ROOT_URLCONF = 'optimalhires.urls'
 
 TEMPLATES = [
