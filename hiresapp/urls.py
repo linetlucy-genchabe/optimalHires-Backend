@@ -12,6 +12,8 @@ routes.register('job', views.JobViewset, basename='job')
 routes.register('employer', views.EmployerViewset, basename='employer')
 routes.register('jobtype', views.JobtypeViewset, basename='jobtype')
 routes.register('category', views.CategoryViewset, basename='category')
+routes.register('jobseekerprofile', views.JobseekerProfileViewset, basename='jobseekerprofile')
+routes.register('employerprofile', views.EmployerProfileViewset, basename='employerprofile')
 
 
 
@@ -23,7 +25,8 @@ urlpatterns = [
     url(r'^api/job$', views.JobViewset.as_view({'get': 'list'})),
     url(r'^api/jobtype$', views.JobtypeViewset.as_view({'get': 'list'})),
     url(r'^api/category$', views.CategoryViewset.as_view({'get': 'list'})),
-   
+    url(r'^api/jobseekerprofile$', views.JobseekerProfileViewset.as_view({'get': 'list'})),
+    url(r'^api/employerprofile$', views.EmployerProfileViewset.as_view({'get': 'list'})),
    
 ]
 

@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
+from djmoney.models.fields import MoneyField
 
 # Create your models here.
 class Jobtype(models.Model):
@@ -64,5 +65,35 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 
+JOBCATEGORY_CHOICES = (
+    ("Technology", "Technology"),
+    ("Business", "Business"),
+    ("Engineering", "Engineering"),
+    ("Agriculture", "Agriculture"),
+    ("Freelance", "Freelance"),
+    ("Part time", "Part time"),
+    ("Full time", "Full time"),
+    ("Contract", "Contract"),
+)
 
+class JobseekerProfile(models.Model):
+    
+    jobseeker = models.OneToOneField(Jobseeker, on_delete = models.CASCADE, primary_key = True)
+    phone_number = models.CharField(max_length=20)
+    email= models.CharField(max_length=35)
+    location = models.CharField(max_length=20)
+    employer = models.ForeignKey(Employer, on_delete=models.SET_NULL, null=True,blank=True)
+    job_category= models.CharField(max_length = 20, choices = JOBCATEGORY_CHOICES, default = 'Technology')
+    salary = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
 
+    def __str__(self):
+        return self.fullname
+
+class EmployerProfile(models.Model):
+    employer = models.OneToOneField(Employer, on_delete = models.CASCADE, primary_key = True)
+    jobseeker_viewer = models.ForeignKey(JobseekerProfile, on_delete = models.CASCADE)
+    
+    def __str__(self):
+        return self.name
+
+   

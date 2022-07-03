@@ -44,3 +44,17 @@ class EmployerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Employer
         fields = ('employerId','name', 'contact', 'image','description',)
+
+class JobseekerProfileSerializer(serializers.HyperlinkedModelSerializer):
+    jobseeker = JobseekerSerializer()
+    # employer = EmployerSerializer()
+    class Meta:
+        model = JobseekerProfile
+        fields = ('jobseeker','phone_number', 'email', 'location','employer','job_category','salary',)
+
+class EmployerProfileSerializer(serializers.HyperlinkedModelSerializer):
+    employer = EmployerSerializer()
+    # jobseeker_viewer = JobseekerProfileSerializer()
+    class Meta:
+        model = EmployerProfile
+        fields = ('employer','jobseeker_viewer',)

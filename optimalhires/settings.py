@@ -45,6 +45,7 @@ cloudinary.config(
 # Application definition
 
 INSTALLED_APPS = [
+    'djmoney',
     'hiresapp.apps.HiresappConfig',
     'bootstrap5',
     'cloudinary',
@@ -116,8 +117,8 @@ DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': 'hiresdb',
-    'USER': 'lynne',
-    'PASSWORD':'lynne2022',
+    'USER': 'nessie',
+    'PASSWORD':'agnes1234',
     }
 }
 

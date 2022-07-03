@@ -49,4 +49,12 @@ class CategoryViewset(viewsets.ModelViewSet):
     queryset = Category.objects.all()
 
     
+class JobseekerProfileViewset(viewsets.ModelViewSet):
+    serializer_class = JobseekerProfileSerializer
+    queryset = JobseekerProfile.objects.all()
+
+class  EmployerProfileViewset(viewsets.ModelViewSet):
+    serializer_class =  EmployerProfileSerializer
+    queryset =  EmployerProfile.objects.all()
+
 
