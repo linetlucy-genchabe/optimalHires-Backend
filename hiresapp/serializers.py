@@ -50,11 +50,11 @@ class JobseekerProfileSerializer(serializers.HyperlinkedModelSerializer):
     # employer = EmployerSerializer()
     class Meta:
         model = JobseekerProfile
-        fields = ('jobseeker','phone_number', 'email', 'location','employer','job_category','salary',)
+        fields = ('jobseeker','about_me','phone_number', 'email', 'location','educational_qualification','professional_designation', 'experience_years','employer','job_category','salary','create_at',)
 
 class EmployerProfileSerializer(serializers.HyperlinkedModelSerializer):
     employer = EmployerSerializer()
     # jobseeker_viewer = JobseekerProfileSerializer()
     class Meta:
         model = EmployerProfile
-        fields = ('employer','jobseeker_viewer',)
+        fields = ('employer','current_opportunities','employee_benefits',)

@@ -75,11 +75,12 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ALLOWED_ORIGINS =[
-#     'http://localhost:4200',
-#     'https://optimal-hires.herokuapp.com',
-#     'https://linetlucy-genchabe.github.io',
-# ]
+CORS_ALLOWED_ORIGINS =[
+    'http://localhost:4200',
+    'https://optimal-hires.herokuapp.com',
+    # 'https://linetlucy-genchabe.github.io',
+    'https://Agneskoinange.github.io',
+]
 
 REST_FRAMEWORK={
     'DEFAULT_AUTHENTICATION_CLASSES':(

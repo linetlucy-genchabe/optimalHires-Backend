@@ -8,6 +8,8 @@ from cloudinary.models import CloudinaryField
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
 from djmoney.models.fields import MoneyField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 class Jobtype(models.Model):
@@ -19,10 +21,8 @@ class Category(models.Model):
     CategoryId = models.AutoField(primary_key=True,default=None)
     name = models.CharField(max_length=50, unique=True)
     
-    
     def __str__(self):
         return self.name
-
 
     def save_category(self):
         self.save()
@@ -33,6 +33,7 @@ class Jobseeker(models.Model):
     image = CloudinaryField('pic')
     gender = models.CharField(max_length=10)
     resume = CloudinaryField('resume')
+    
  
     def __str__(self):
         return self.fullname
@@ -77,23 +78,41 @@ JOBCATEGORY_CHOICES = (
 )
 
 class JobseekerProfile(models.Model):
-    
     jobseeker = models.OneToOneField(Jobseeker, on_delete = models.CASCADE, primary_key = True)
+    about_me = models.TextField(max_length=1000, null=True,blank=True)
     phone_number = models.CharField(max_length=20)
-    email= models.CharField(max_length=35)
+    email= models.EmailField(max_length=254)
     location = models.CharField(max_length=20)
+    educational_qualification = models.CharField(max_length=254,null=True,blank=True)
+    professional_designation = models.CharField(max_length=254, null=True,blank=True)
+    experience_years= models.CharField(max_length=20, null=True,blank=True)
     employer = models.ForeignKey(Employer, on_delete=models.SET_NULL, null=True,blank=True)
     job_category= models.CharField(max_length = 20, choices = JOBCATEGORY_CHOICES, default = 'Technology')
     salary = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
+    create_at=models.DateTimeField(auto_now_add=True, null=True,blank=True)
+
 
     def __str__(self):
-        return self.fullname
+        return self.jobseeker.fullname
 
 class EmployerProfile(models.Model):
     employer = models.OneToOneField(Employer, on_delete = models.CASCADE, primary_key = True)
-    jobseeker_viewer = models.ForeignKey(JobseekerProfile, on_delete = models.CASCADE)
+    current_opportunities = models.TextField(max_length=250, null=True, blank=True)
+    employee_benefits=models.TextField(max_length=2500, null=True, blank=True)
+    # jobseeker_viewer = models.ManyToManyField(JobseekerProfile)
     
     def __str__(self):
-        return self.name
+        return self.employer.name
 
-   
+@receiver(post_save, sender=Jobseeker)
+def update_profile_signal(sender, instance, created, **kwargs):
+    if created:
+        JobseekerProfile.objects.create(user=instance)
+    instance.jobseekerprofile.save()
+
+
+@receiver(post_save, sender=Employer)
+def update_profile_signal(sender, instance, created, **kwargs):
+    if created:
+        EmployerProfile.objects.create(user=instance)
+    instance.employerprofile.save()
