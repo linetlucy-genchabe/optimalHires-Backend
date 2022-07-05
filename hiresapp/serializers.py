@@ -14,12 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         ]
 
-class JobSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Job
-        fields = ('jobId','title', 'description', 'location', 'job_type', 'job_category','last_date', 'company_name', 'company_description', 'website','created_at',)
 
-        
 class JobseekerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Jobseeker
