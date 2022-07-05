@@ -51,6 +51,10 @@ INSTALLED_APPS = [
     'tinymce',
     'corsheaders',
     'rest_framework',
+    'drf_yasg',
+    'cloudinary_storage',
+    'rest_framework.authtoken',
+    'rest_framework_swagger',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -177,10 +181,23 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
-LOGIN_REDIRECT_URL ='/accounts/profile/'
+# LOGIN_REDIRECT_URL ='/accounts/profile/'
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+    )
+}
+
+
+AUTH_USER_MODEL = 'hiresapp.User'
+ACCOUNT_EMAIL_UNIQUE=True
