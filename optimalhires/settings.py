@@ -34,7 +34,7 @@ SECRET_KEY = '87p-1n$3@7s@&ri3@zuxrlc@x0pvftn*yol4ijn)aau4j4e@hj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 cloudinary.config( 
@@ -80,7 +80,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # CORS_ALLOWED_ORIGINS =[
 #     'http://localhost:4200',
-#     'https://optimal-hires.herokuapp.com',
+#     'https://optimalhires.herokuapp.com',
 #     'https://linetlucy-genchabe.github.io',
 # ]
 
