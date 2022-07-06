@@ -8,6 +8,27 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 
+
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+...
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Optimal-Hires",
+      default_version='v1',
+      description="Test description",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@snippets.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=[permissions.AllowAny],
+)
+
+
 routes = DefaultRouter()
 routes.register('jobseeker', views.JobseekerViewset, basename='jobseeker')
 routes.register('job', views.JobViewset, basename='job')
@@ -31,7 +52,12 @@ urlpatterns = [
     path('login/', views.CustomAuthToken.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('jobseeker/dashboard/',views. JobseekerOnlyView.as_view(), name='jobseekers'),
-    path('employer/dashboard/', views.EmployerOnlyView.as_view(), name='employers')
+    path('employer/dashboard/', views.EmployerOnlyView.as_view(), name='employers'),
+
+    # url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+   
    
    
 ]
