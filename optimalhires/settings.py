@@ -75,6 +75,8 @@ cloudinary.config(
 # Application definition
 
 INSTALLED_APPS = [
+    
+    'djmoney',
     'hiresapp.apps.HiresappConfig',
     'bootstrap5',
     'cloudinary',
@@ -108,6 +110,12 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOWED_ORIGINS =[
+    'http://localhost:4200',
+    'https://optimal-hires.herokuapp.com',
+    # 'https://linetlucy-genchabe.github.io',
+    'https://Agneskoinange.github.io',
+]
 # CORS_ALLOWED_ORIGINS =[
 #     'http://localhost:4200',
 #     'https://optimalhires.herokuapp.com',
@@ -150,8 +158,8 @@ DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': 'hiresdb',
-    'USER': 'lynne',
-    'PASSWORD':'lynne2022',
+    'USER': 'nessie',
+    'PASSWORD':'agnes1234',
     }
 }
 
