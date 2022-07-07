@@ -14,7 +14,12 @@ class UserSerializer(serializers.ModelSerializer):
 
         ]
 
+class JobSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Job
+        fields = ('jobId','title', 'description', 'location', 'job_type', 'job_category','last_date', 'company_name', 'company_description', 'website','created_at',)
 
+        
 class JobseekerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Jobseeker
@@ -53,3 +58,10 @@ class EmployerProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = EmployerProfile
         fields = ('employer','current_opportunities','employee_benefits',)
+
+class JobseekerProfileSerializer(serializers.HyperlinkedModelSerializer):
+    jobseeker = JobseekerSerializer()
+    # employer = EmployerSerializer()
+    class Meta:
+        model = JobseekerProfile
+        fields = ('jobseeker','about_me','phone_number', 'email', 'location','educational_qualification','professional_designation', 'experience_years','employer','job_category','salary','create_at',)

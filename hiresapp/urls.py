@@ -1,5 +1,6 @@
 from django.urls import re_path as url, include
 
+
 from hiresapp.models import *
 from . import views
 from django.conf import settings
@@ -19,7 +20,6 @@ routes.register('employerprofile', views.EmployerProfileViewset, basename='emplo
 
 urlpatterns = [
     # url(r'^$', views.index, name= 'index'),
-
     url(r'^api/jobseeker$', views.JobseekerViewset.as_view({'get': 'list'})),
     url(r'^api/employer$', views.EmployerViewset.as_view({'get': 'list'})),
     url(r'^api/job$', views.JobViewset.as_view({'get': 'list'})),
@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^api/category$', views.CategoryViewset.as_view({'get': 'list'})),
     url(r'^api/jobseekerprofile$', views.JobseekerProfileViewset.as_view({'get': 'list'})),
     url(r'^api/employerprofile$', views.EmployerProfileViewset.as_view({'get': 'list'})),
+    # url(r'^upload/$', FileUploadView.as_view(), name='fileupload'),
+    
    
 ]
 

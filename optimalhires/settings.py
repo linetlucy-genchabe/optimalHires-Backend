@@ -45,6 +45,7 @@ cloudinary.config(
 # Application definition
 
 INSTALLED_APPS = [
+    
     'djmoney',
     'hiresapp.apps.HiresappConfig',
     'bootstrap5',

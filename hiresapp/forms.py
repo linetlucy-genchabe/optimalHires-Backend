@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
-# from .models import Applicant,Company
 from users.models import JobseekerProfile, EmployerProfile
+# from django import forms
+# from django.utils import six
+# from djng.forms import fields, NgDeclarativeFieldsMetaclass, NgModelFormMixin
 
 
 class JobseekerProfileForm(forms.ModelForm):
