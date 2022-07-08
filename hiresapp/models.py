@@ -60,8 +60,8 @@ class Jobseeker(models.Model):
     resume = CloudinaryField('resume')
     
  
-    # def __str__(self):
-    #     return self.fullname
+    def __str__(self):
+        return self.fullname
 
 class Employer(models.Model):
     user=models.OneToOneField(User ,related_name='employer',on_delete=models.CASCADE, default=None)
@@ -71,8 +71,8 @@ class Employer(models.Model):
     description = models.CharField(max_length=1000)
     
  
-    # def __str__ (self):
-    #     return self.user.username
+    def __str__ (self):
+        return self.user.username
 
 class Job(models.Model):
     jobId = models.AutoField(primary_key=True, default=None)
