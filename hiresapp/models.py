@@ -112,6 +112,7 @@ JOBCATEGORY_CHOICES = (
 )
 
 class JobseekerProfile(models.Model):
+    # user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='jobseekerprofile',default=None)
     jobseeker = models.OneToOneField(Jobseeker, on_delete = models.CASCADE, primary_key = True)
     about_me = models.TextField(max_length=1000, null=True,blank=True)
     phone_number = models.CharField(max_length=20)
@@ -125,6 +126,25 @@ class JobseekerProfile(models.Model):
     salary = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
     availability=models.CharField(max_length=70)
     create_at=models.DateTimeField(auto_now_add=True, null=True,blank=True)
+
+
+    #Signals for saving profile when a user is created
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+        
+        
+    def save_profile(self):
+        self.save()
+    
+
+    def __str__(self):
+        return self.jobseeker.fullname
     
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
@@ -158,6 +178,18 @@ class EmployerProfile(models.Model):
     employee_benefits=models.TextField(max_length=2500, null=True, blank=True)
     # jobseeker_viewer = models.ManyToManyField(JobseekerProfile)
     
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+        
+        
+    def save_profile(self):
+        self.save()
     def __str__(self):
         return self.employer.name
 
