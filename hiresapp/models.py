@@ -123,6 +123,7 @@ class JobseekerProfile(models.Model):
     employer = models.ForeignKey(Employer, on_delete=models.SET_NULL, null=True,blank=True)
     job_category= models.CharField(max_length = 20, choices = JOBCATEGORY_CHOICES, default = 'Technology')
     salary = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
+    availability=models.CharField(max_length=70)
     create_at=models.DateTimeField(auto_now_add=True, null=True,blank=True)
     
 class Profile(models.Model):
