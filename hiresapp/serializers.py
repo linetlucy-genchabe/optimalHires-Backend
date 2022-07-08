@@ -97,4 +97,26 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 class EmployerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Employer
-        fields = ('employerId','name', 'contact','description',)
+        fields = ('employerId','name', 'contact', 'description',)
+
+class JobseekerProfileSerializer(serializers.HyperlinkedModelSerializer):
+    jobseeker = JobseekerSerializer()
+    # employer = EmployerSerializer()
+    class Meta:
+        model = JobseekerProfile
+        fields = ('jobseeker','about_me','phone_number', 'email', 'location','educational_qualification','professional_designation', 'experience_years','employer','job_category','salary','availability','create_at',)
+
+class EmployerProfileSerializer(serializers.HyperlinkedModelSerializer):
+    employer = EmployerSerializer()
+    # jobseeker_viewer = JobseekerProfileSerializer()
+    class Meta:
+        model = EmployerProfile
+        fields = ('employer','current_opportunities','employee_benefits',)
+
+class JobseekerProfileSerializer(serializers.HyperlinkedModelSerializer):
+    jobseeker = JobseekerSerializer()
+    # employer = EmployerSerializer()
+    class Meta:
+        model = JobseekerProfile
+        fields = ('jobseeker','about_me','phone_number', 'email', 'location','educational_qualification','professional_designation', 'experience_years','employer','job_category','salary','create_at',)
+        # fields = ('employerId','name', 'contact','description',)
