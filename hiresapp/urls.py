@@ -1,5 +1,6 @@
 from django.urls import re_path as url, include, path
 
+
 from hiresapp.models import *
 from . import views
 from .views import *
@@ -35,17 +36,22 @@ routes.register('job', views.JobViewset, basename='job')
 routes.register('employer', views.EmployerViewset, basename='employer')
 
 routes.register('category', views.CategoryViewset, basename='category')
+routes.register('jobseekerprofile', views.JobseekerProfileViewset, basename='jobseekerprofile')
+routes.register('employerprofile', views.EmployerProfileViewset, basename='employerprofile')
 
 
 
 urlpatterns = [
     # url(r'^$', views.index, name= 'index'),
-
     url(r'^api/jobseeker$', views.JobseekerViewset.as_view({'get': 'list'})),
     url(r'^api/employer$', views.EmployerViewset.as_view({'get': 'list'})),
     url(r'^api/job$', views.JobViewset.as_view({'get': 'list'})),
     
     url(r'^api/category$', views.CategoryViewset.as_view({'get': 'list'})),
+    url(r'^api/jobseekerprofile$', views.JobseekerProfileViewset.as_view({'get': 'list'})),
+    url(r'^api/employerprofile$', views.EmployerProfileViewset.as_view({'get': 'list'})),
+    # url(r'^upload/$', FileUploadView.as_view(), name='fileupload'),
+    
 
     path('signup/jobseeker/', views.JobseekerSignUpView.as_view()),
     path('signup/employer/', views.EmployerSignUpView.as_view()),
