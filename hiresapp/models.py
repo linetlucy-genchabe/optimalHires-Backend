@@ -193,15 +193,15 @@ class EmployerProfile(models.Model):
     def __str__(self):
         return self.employer.name
 
-    @receiver(post_save, sender=Jobseeker)
-    def update_profile_signal(sender, instance, created, **kwargs):
-        if created:
-            JobseekerProfile.objects.create(user=instance)
-        instance.jobseekerprofile.save()
+    # @receiver(post_save, sender=Jobseeker)
+    # def update_profile_signal(sender, instance, created, **kwargs):
+    #     if created:
+    #         JobseekerProfile.objects.create(user=instance)
+    #     instance.jobseekerprofile.save()
 
 
-    @receiver(post_save, sender=Employer)
-    def update_profile_signal(sender, instance, created, **kwargs):
-        if created:
-            EmployerProfile.objects.create(user=instance)
-        instance.employerprofile.save()
+    # @receiver(post_save, sender=Employer)
+    # def update_profile_signal(sender, instance, created, **kwargs):
+    #     if created:
+    #         EmployerProfile.objects.create(user=instance)
+    #     instance.employerprofile.save()
