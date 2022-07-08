@@ -60,8 +60,8 @@ class Jobseeker(models.Model):
     resume = CloudinaryField('resume')
     
  
-    # def __str__(self):
-    #     return self.fullname
+    def __str__(self):
+        return self.fullname
 
 class Employer(models.Model):
     user=models.OneToOneField(User ,related_name='employer',on_delete=models.CASCADE, default=None)
@@ -71,8 +71,8 @@ class Employer(models.Model):
     description = models.CharField(max_length=1000)
     
  
-    # def __str__ (self):
-    #     return self.user.username
+    def __str__ (self):
+        return self.user.username
 
 class Job(models.Model):
     jobId = models.AutoField(primary_key=True, default=None)
@@ -193,15 +193,15 @@ class EmployerProfile(models.Model):
     def __str__(self):
         return self.employer.name
 
-@receiver(post_save, sender=Jobseeker)
-def update_profile_signal(sender, instance, created, **kwargs):
-    if created:
-        JobseekerProfile.objects.create(user=instance)
-    instance.jobseekerprofile.save()
+    # @receiver(post_save, sender=Jobseeker)
+    # def update_profile_signal(sender, instance, created, **kwargs):
+    #     if created:
+    #         JobseekerProfile.objects.create(user=instance)
+    #     instance.jobseekerprofile.save()
 
 
-@receiver(post_save, sender=Employer)
-def update_profile_signal(sender, instance, created, **kwargs):
-    if created:
-        EmployerProfile.objects.create(user=instance)
-    instance.employerprofile.save()
+    # @receiver(post_save, sender=Employer)
+    # def update_profile_signal(sender, instance, created, **kwargs):
+    #     if created:
+    #         EmployerProfile.objects.create(user=instance)
+    #     instance.employerprofile.save()
