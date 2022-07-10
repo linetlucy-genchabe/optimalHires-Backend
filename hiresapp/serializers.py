@@ -69,11 +69,6 @@ class EmployerSignUpSerializer(serializers.ModelSerializer):
         return user
             
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ("pk", 'user','firstname','lastname','email','profile_pic','bio') 
-
 
 class JobSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
