@@ -64,7 +64,7 @@ class Jobseeker(models.Model):
         return self.fullname
 
 class Employer(models.Model):
-    user=models.OneToOneField(User ,related_name='employer',on_delete=models.CASCADE, default=None)
+    user=models.OneToOneField(User ,related_name='employer',on_delete=models.CASCADE,default=None)
     employerId = models.AutoField(primary_key=True,default=None)
     name = models.CharField(max_length=100)
     contact = models.CharField(max_length=50)
@@ -112,8 +112,9 @@ JOBCATEGORY_CHOICES = (
 )
 
 class JobseekerProfile(models.Model):
-    # user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='jobseekerprofile',default=None)
-    jobseeker = models.OneToOneField(Jobseeker, on_delete = models.CASCADE, primary_key = True)
+    
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='jobseekerprofile',default=None)
+    jobseeker = models.OneToOneField(Jobseeker, on_delete = models.CASCADE)
     about_me = models.TextField(max_length=1000, null=True,blank=True)
     phone_number = models.CharField(max_length=20)
     email= models.EmailField(max_length=254)
@@ -173,7 +174,8 @@ class JobseekerProfile(models.Model):
 #         return self.jobseeker.fullname
 
 class EmployerProfile(models.Model):
-    employer = models.OneToOneField(Employer, on_delete = models.CASCADE, primary_key = True)
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='employerprofile',default=None)
+    employer = models.OneToOneField(Employer, on_delete = models.CASCADE)
     current_opportunities = models.TextField(max_length=250, null=True, blank=True)
     employee_benefits=models.TextField(max_length=2500, null=True, blank=True)
     # jobseeker_viewer = models.ManyToManyField(JobseekerProfile)
