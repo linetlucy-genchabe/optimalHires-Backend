@@ -146,8 +146,12 @@ class JobseekerProfile(models.Model):
         self.save()
     
 
+    @receiver(post_save, sender=User)
+    def update_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)   
     def __str__(self):
-        return self.user
+        return self.user.username
     
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
@@ -172,6 +176,11 @@ class Profile(models.Model):
         self.save()
     
 
+    @receiver(post_save, sender=User)
+    def update_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
     def __str__(self):
         return self.firstname
 
@@ -193,7 +202,14 @@ class EmployerProfile(models.Model):
         
     def save_employerprofile(self):
         self.save()
+
+        
+    @receiver(post_save, sender=User)
+    def update_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
     def __str__(self):
-        return self.user
+        return self.user.username
 
    
