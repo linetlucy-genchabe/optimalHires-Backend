@@ -113,7 +113,7 @@ JOBCATEGORY_CHOICES = (
 
 class JobseekerProfile(models.Model):
     
-    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='jobseekerprofile',default=None)
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='jobseekerprofile')
     jobseeker = models.OneToOneField(Jobseeker, on_delete = models.CASCADE)
     about_me = models.TextField(max_length=1000, null=True,blank=True)
     phone_number = models.CharField(max_length=20)
@@ -174,7 +174,7 @@ class JobseekerProfile(models.Model):
 #         return self.jobseeker.fullname
 
 class EmployerProfile(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='employerprofile',default=None)
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='employerprofile')
     employer = models.OneToOneField(Employer, on_delete = models.CASCADE)
     current_opportunities = models.TextField(max_length=250, null=True, blank=True)
     employee_benefits=models.TextField(max_length=2500, null=True, blank=True)
