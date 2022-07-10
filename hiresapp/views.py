@@ -86,17 +86,18 @@ class  EmployerProfileViewset(viewsets.ModelViewSet):
 
 
 #views
-# @swagger_auto_schema(request_body=StaffSignUpSerializer)
+# @swagger_auto_schema(request_body=JobseekerSignUpSerializer)
 class JobseekerSignUpView(generics.GenericAPIView):
     serializer_class=JobseekerSignUpSerializer
     def post(self, request, *args, **kwargs):
         serializer= self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user=serializer.save()
+        
         return Response({
             "user":UserSerializer(user, context=self.get_serializer_context()).data,
             "Token":Token.objects.get(user=user).key,
-            "message":"Staff Registration successful.You are now registered as a staff"
+            "message":"jobseeker Registration successful.You are now registered as a staff"
         })
 
 class EmployerSignUpView(generics.GenericAPIView):
@@ -121,7 +122,8 @@ class CustomAuthToken(ObtainAuthToken):
         return Response({
             'token':token.key,
             'user_id':user.pk,
-            'is_jobseeker':user.is_jobseeker
+            'is_jobseeker':user.is_jobseeker,
+            'is_employer':user.is_employer
         })
         
 class LogoutView(APIView):

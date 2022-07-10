@@ -112,30 +112,58 @@ JOBCATEGORY_CHOICES = (
 )
 
 class JobseekerProfile(models.Model):
-    
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='jobseekerprofile')
-    jobseeker = models.OneToOneField(Jobseeker, on_delete = models.CASCADE)
+    
+    
+    jobseeker = models.OneToOneField(Jobseeker, on_delete = models.CASCADE,null=True)
     about_me = models.TextField(max_length=1000, null=True,blank=True)
-    phone_number = models.CharField(max_length=20)
-    email= models.EmailField(max_length=254)
-    location = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=20,null=True)
+    email= models.EmailField(max_length=254,null=True)
+    location = models.CharField(max_length=20,null=True)
     educational_qualification = models.CharField(max_length=254,null=True,blank=True)
     professional_designation = models.CharField(max_length=254, null=True,blank=True)
     experience_years= models.CharField(max_length=20, null=True,blank=True)
     employer = models.ForeignKey(Employer, on_delete=models.SET_NULL, null=True,blank=True)
-    job_category= models.CharField(max_length = 20, choices = JOBCATEGORY_CHOICES, default = 'Technology')
-    salary = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
-    availability=models.CharField(max_length=70)
+    job_category= models.CharField(max_length = 20, choices = JOBCATEGORY_CHOICES, default = 'Technology',null=True)
+    salary = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null=True)
+    availability=models.CharField(max_length=70,null=True)
     create_at=models.DateTimeField(auto_now_add=True, null=True,blank=True)
-
+    
+    
 
     #Signals for saving profile when a user is created
     @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
+    def create_jobseeker_profile(sender, instance, created, **kwargs):
         if created:
             JobseekerProfile.objects.create(user=instance)
 
     @receiver(post_save, sender=User)
+    def save_jobseeker_profile(sender, instance, **kwargs):
+        instance.jobseekerprofile.save()
+        
+        
+    def save_jobseekerprofile(self):
+        self.save()
+    
+
+    def __str__(self):
+        return self.user
+    
+class Profile(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
+    firstname=models.CharField(max_length=100,blank=True,null=True)
+    lastname=models.CharField(max_length=100,blank=True,null=True)
+    email=models.EmailField(max_length=100,blank=True,null=True)
+    profile_pic=models.ImageField(upload_to='images_uploaded', null=True)
+    bio=models.TextField(blank=True,null=True)
+    
+    #Signals for saving profile when a user is created
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
         
@@ -145,65 +173,27 @@ class JobseekerProfile(models.Model):
     
 
     def __str__(self):
-        return self.jobseeker.fullname
-    
-# class Profile(models.Model):
-#     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
-#     firstname=models.CharField(max_length=100,blank=True,null=True)
-#     lastname=models.CharField(max_length=100,blank=True,null=True)
-#     email=models.EmailField(max_length=100,blank=True,null=True)
-#     profile_pic=models.ImageField(upload_to='images_uploaded', null=True)
-#     bio=models.TextField(blank=True,null=True)
-    
-#     #Signals for saving profile when a user is created
-#     @receiver(post_save, sender=User)
-#     def create_user_profile(sender, instance, created, **kwargs):
-#         if created:
-#             Profile.objects.create(user=instance)
-
-#     @receiver(post_save, sender=User)
-#     def save_user_profile(sender, instance, **kwargs):
-#         instance.profile.save()
-        
-        
-#     def save_profile(self):
-#         self.save()
-    
-
-#     def __str__(self):
-#         return self.jobseeker.fullname
+        return self.firstname
 
 class EmployerProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='employerprofile')
-    employer = models.OneToOneField(Employer, on_delete = models.CASCADE)
+    employer = models.OneToOneField(Employer, on_delete = models.CASCADE,null=True)
     current_opportunities = models.TextField(max_length=250, null=True, blank=True)
     employee_benefits=models.TextField(max_length=2500, null=True, blank=True)
-    # jobseeker_viewer = models.ManyToManyField(JobseekerProfile)
     
     @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
+    def create_employer_profile(sender, instance, created, **kwargs):
         if created:
             EmployerProfile.objects.create(user=instance)
 
     @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
+    def save_employer_profile(sender, instance, **kwargs):
+        instance.employerprofile.save()
         
         
-    def save_profile(self):
+    def save_employerprofile(self):
         self.save()
     def __str__(self):
-        return self.employer.name
+        return self.user
 
-    # @receiver(post_save, sender=Jobseeker)
-    # def update_profile_signal(sender, instance, created, **kwargs):
-    #     if created:
-    #         JobseekerProfile.objects.create(user=instance)
-    #     instance.jobseekerprofile.save()
-
-
-    # @receiver(post_save, sender=Employer)
-    # def update_profile_signal(sender, instance, created, **kwargs):
-    #     if created:
-    #         EmployerProfile.objects.create(user=instance)
-    #     instance.employerprofile.save()
+   
