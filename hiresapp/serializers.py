@@ -97,22 +97,22 @@ class EmployerSerializer(serializers.HyperlinkedModelSerializer):
 
 class JobseekerProfileSerializer(serializers.HyperlinkedModelSerializer):
     jobseeker = JobseekerSerializer()
-    user=User()
+    # user=User()
     # employer = EmployerSerializer()
     class Meta:
         model = JobseekerProfile
-        fields = ('pk','user','jobseeker','about_me','phone_number', 'email', 'location','educational_qualification','professional_designation', 'experience_years','employer','job_category','salary','availability','create_at',)
+        fields = ('pk','user','jobseeker','about_me','phone_number', 'email', 'location','educational_qualification','professional_designation', 'experience_years','job_category','salary','availability','create_at',)
 
-class EmployerProfileSerializer(serializers.HyperlinkedModelSerializer):
+# class EmployerProfileSerializer(serializers.HyperlinkedModelSerializer):
     
-    employer = EmployerSerializer()
-    user=User()
-    class Meta:
-        model = EmployerProfile
-        fields = ('pk','user','employer','current_opportunities','employee_benefits',)
+#     employer = EmployerSerializer()
+#     user=User()
+#     class Meta:
+#         model = EmployerProfile
+#         fields = ('pk','user','employer','current_opportunities','employee_benefits',)
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ("pk", 'user','firstname','lastname','email','profile_pic','bio') 
+# class ProfileSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Profile
+#         fields = ("pk", 'user','firstname','lastname','email','profile_pic','bio') 

@@ -16,13 +16,20 @@ from django.conf import settings
 
 # Create your models here.
 
+# ROLE_CHOICES = (
+#    ("admin " , "admin"),
+#    ("jobseeker " , "jobseeker"),
+#    ("employer " , "employer"),
 
+# )
 
 class User(AbstractUser):
     is_admin = models.BooleanField('Is admin', default=False)
-    is_employer = models.BooleanField('Is employer', default=False)
+    is_employer = models.BooleanField('Is employer',default=False)
     is_jobseeker = models.BooleanField('Is jobseeker', default=False)
     
+
+
     def __str__(self):
         return self.username
 
@@ -123,7 +130,6 @@ class JobseekerProfile(models.Model):
     educational_qualification = models.CharField(max_length=254,null=True,blank=True)
     professional_designation = models.CharField(max_length=254, null=True,blank=True)
     experience_years= models.CharField(max_length=20, null=True,blank=True)
-    employer = models.ForeignKey(Employer, on_delete=models.SET_NULL, null=True,blank=True)
     job_category= models.CharField(max_length = 20, choices = JOBCATEGORY_CHOICES, default = 'Technology',null=True)
     salary = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null=True)
     availability=models.CharField(max_length=70,null=True)
@@ -147,69 +153,69 @@ class JobseekerProfile(models.Model):
     
 
     @receiver(post_save, sender=User)
-    def update_user_profile(sender, instance, created, **kwargs):
+    def update_jobseeker_profile(sender, instance, created, **kwargs):
         if created:
-            Profile.objects.create(user=instance)   
+            JobseekerProfile.objects.create(user=instance)   
     def __str__(self):
         return self.user.username
     
-class Profile(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
-    firstname=models.CharField(max_length=100,blank=True,null=True)
-    lastname=models.CharField(max_length=100,blank=True,null=True)
-    email=models.EmailField(max_length=100,blank=True,null=True)
-    profile_pic=models.ImageField(upload_to='images_uploaded', null=True)
-    bio=models.TextField(blank=True,null=True)
+# class Profile(models.Model):
+#     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
+#     firstname=models.CharField(max_length=100,blank=True,null=True)
+#     lastname=models.CharField(max_length=100,blank=True,null=True)
+#     email=models.EmailField(max_length=100,blank=True,null=True)
+#     profile_pic=models.ImageField(upload_to='images_uploaded', null=True)
+#     bio=models.TextField(blank=True,null=True)
     
-    #Signals for saving profile when a user is created
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
+#     #Signals for saving profile when a user is created
+#     @receiver(post_save, sender=User)
+#     def create_user_profile(sender, instance, created, **kwargs):
+#         if created:
+#             Profile.objects.create(user=instance)
 
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
+#     @receiver(post_save, sender=User)
+#     def save_user_profile(sender, instance, **kwargs):
+#         instance.profile.save()
         
         
-    def save_profile(self):
-        self.save()
+#     def save_profile(self):
+#         self.save()
     
 
-    @receiver(post_save, sender=User)
-    def update_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
+#     @receiver(post_save, sender=User)
+#     def update_user_profile(sender, instance, created, **kwargs):
+#         if created:
+#             Profile.objects.create(user=instance)
 
-    def __str__(self):
-        return self.firstname
+#     def __str__(self):
+#         return self.firstname
 
-class EmployerProfile(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='employerprofile')
-    employer = models.OneToOneField(Employer, on_delete = models.CASCADE,null=True)
-    current_opportunities = models.TextField(max_length=250, null=True, blank=True)
-    employee_benefits=models.TextField(max_length=2500, null=True, blank=True)
+# class EmployerProfile(models.Model):
+#     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='employerprofile')
+#     employer = models.OneToOneField(Employer, on_delete = models.CASCADE)
+#     current_opportunities = models.TextField(max_length=250, null=True, blank=True)
+#     employee_benefits=models.TextField(max_length=2500, null=True, blank=True)
     
-    @receiver(post_save, sender=User)
-    def create_employer_profile(sender, instance, created, **kwargs):
-        if created:
-            EmployerProfile.objects.create(user=instance)
+#     @receiver(post_save, sender=User)
+#     def create_employer_profile(sender, instance, created, **kwargs):
+#         if created:
+#             EmployerProfile.objects.create(user=instance)
 
-    @receiver(post_save, sender=User)
-    def save_employer_profile(sender, instance, **kwargs):
-        instance.employerprofile.save()
+#     @receiver(post_save, sender=User)
+#     def save_employer_profile(sender, instance, **kwargs):
+#         instance.employerprofile.save()
         
         
-    def save_employerprofile(self):
-        self.save()
+#     def save_employerprofile(self):
+#         self.save()
 
         
-    @receiver(post_save, sender=User)
-    def update_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
+#     @receiver(post_save, sender=User)
+#     def update_employer_profile(sender, instance, created, **kwargs):
+#         if created:
+#             EmployerProfile.objects.create(user=instance)
 
-    def __str__(self):
-        return self.user.username
+#     def __str__(self):
+#         return self.user.username
 
    

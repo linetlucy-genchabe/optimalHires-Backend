@@ -37,7 +37,7 @@ routes.register('employer', views.EmployerViewset, basename='employer')
 
 routes.register('category', views.CategoryViewset, basename='category')
 routes.register('jobseekerprofile', views.JobseekerProfileViewset, basename='jobseekerprofile')
-routes.register('employerprofile', views.EmployerProfileViewset, basename='employerprofile')
+# routes.register('employerprofile', views.EmployerProfileViewset, basename='employerprofile')
 
 
 
@@ -49,7 +49,7 @@ urlpatterns = [
     
     url(r'^api/category$', views.CategoryViewset.as_view({'get': 'list'})),
     url(r'^api/jobseekerprofile$', views.JobseekerProfileViewset.as_view({'get': 'list'})),
-    url(r'^api/employerprofile$', views.EmployerProfileViewset.as_view({'get': 'list'})),
+    # url(r'^api/employerprofile$', views.EmployerProfileViewset.as_view({'get': 'list'})),
     # url(r'^upload/$', FileUploadView.as_view(), name='fileupload'),
     
 
