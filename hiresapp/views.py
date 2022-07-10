@@ -24,18 +24,18 @@ def index(request):
     
     return render(request, 'index.html')
 
-#Application views.
-class UpdateProfile(APIView):
-    serializer_class = ProfileSerializer
-    lookup_field = 'email'
-    profiles = Profile.objects.all()
+# #Application views.
+# class UpdateProfile(APIView):
+#     serializer_class = ProfileSerializer
+#     lookup_field = 'email'
+#     profiles = Profile.objects.all()
   
-    def put(self, request, *args, **kwargs):
-        serializer = ProfileSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     def put(self, request, *args, **kwargs):
+#         serializer = ProfileSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class JobseekerViewset(viewsets.ModelViewSet):
