@@ -113,7 +113,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS =[
     'http://localhost:4200',
     'https://optimal-hires.herokuapp.com',
-    # 'https://linetlucy-genchabe.github.io',
+    'https://linetlucy-genchabe.github.io',
     'https://Agneskoinange.github.io',
 ]
 # CORS_ALLOWED_ORIGINS =[
@@ -127,7 +127,7 @@ REST_FRAMEWORK={
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES':(
-        # 'rest_framework.permissions.IsAuthenticated'
+         'rest_framework.permissions.IsAuthenticated'
     )
 }
 ROOT_URLCONF = 'optimalhires.urls'
