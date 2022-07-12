@@ -38,6 +38,18 @@ def index(request):
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+class AdminSignUpView(generics.GenericAPIView):
+    serializer_class=AdminSignUpSerializer
+    def post(self, request, *args, **kwargs):
+        serializer= self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user=serializer.save()
+        return Response({
+            "user":UserSerializer(user, context=self.get_serializer_context()).data,
+            "Token":Token.objects.get(user=user).key,
+            "message":"Admin Registration successful.You are now registered as an admin"
+        })
 class JobseekerViewset(viewsets.ModelViewSet):
     serializer_class = JobseekerSerializer
     queryset = Jobseeker.objects.all()

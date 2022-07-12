@@ -42,7 +42,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 class Admin(models.Model):
     user=models.OneToOneField(User ,related_name='admin',on_delete=models.CASCADE)
-    phone_number=models.CharField(max_length=200,null=True)
+    username=models.CharField(max_length=200,null=True)
     
     def __str__(self):
         return self.username
