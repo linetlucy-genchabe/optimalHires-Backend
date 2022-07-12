@@ -123,6 +123,7 @@ class JobseekerProfile(models.Model):
     
     
     jobseeker = models.OneToOneField(Jobseeker, on_delete = models.CASCADE,null=True)
+    fullname=models.CharField(max_length=1000, null=True,blank=True)
     about_me = models.TextField(max_length=1000, null=True,blank=True)
     phone_number = models.CharField(max_length=20,null=True)
     email= models.EmailField(max_length=254,null=True)

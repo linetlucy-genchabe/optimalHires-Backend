@@ -109,7 +109,7 @@ class JobseekerSignUpView(generics.GenericAPIView):
         return Response({
             "user":UserSerializer(user, context=self.get_serializer_context()).data,
             "Token":Token.objects.get(user=user).key,
-            "message":"jobseeker Registration successful.You are now registered as a staff"
+            "message":"jobseeker Registration successful.You are now registered as a jobseeker"
         })
 
 class EmployerSignUpView(generics.GenericAPIView):
