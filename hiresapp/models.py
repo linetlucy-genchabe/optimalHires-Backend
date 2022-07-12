@@ -154,8 +154,9 @@ class JobseekerProfile(models.Model):
 
     @receiver(post_save, sender=User)
     def update_jobseeker_profile(sender, instance, created, **kwargs):
-        if created:
-            JobseekerProfile.objects.create(user=instance)   
+        instance.jobseekerprofile.save()
+        # if created:
+        #     JobseekerProfile.objects.create(user=instance)   
     def __str__(self):
         return self.user.username
     

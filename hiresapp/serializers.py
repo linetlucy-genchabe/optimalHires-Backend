@@ -19,9 +19,7 @@ class JobseekerSignUpSerializer(serializers.ModelSerializer):
         model=User
         fields=['username', 'email','password', 'password2']
         
-        extra_kwargs={
-            'password':{'write_only':'True'}
-        }
+       
         
         
     def save(self, **kwargs):
@@ -81,6 +79,7 @@ class JobseekerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Jobseeker
         fields = ('jobseekerId','fullname', 'image', 'gender','resume',)
+        
 
 
         
@@ -96,12 +95,12 @@ class EmployerSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('employerId','name', 'contact', 'description',)
 
 class JobseekerProfileSerializer(serializers.ModelSerializer):
-    jobseeker = JobseekerSerializer()
+    # jobseeker = JobseekerSerializer()
     user=User()
     # employer = EmployerSerializer()
     class Meta:
         model = JobseekerProfile
-        fields = ('pk','user','jobseeker','about_me','phone_number', 'email', 'location','educational_qualification','professional_designation', 'experience_years','job_category','salary','availability','create_at',)
+        fields = ('pk','user','about_me','phone_number', 'email', 'location','educational_qualification','professional_designation', 'experience_years','job_category','salary','availability','create_at',)
 
 # class EmployerProfileSerializer(serializers.HyperlinkedModelSerializer):
     
@@ -116,3 +115,7 @@ class JobseekerProfileSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Profile
 #         fields = ("pk", 'user','firstname','lastname','email','profile_pic','bio') 
+class UserProfileChangeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
