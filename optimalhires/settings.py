@@ -36,10 +36,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# from secret_key_generator import secret_key_generator
 
+# SECRET_KEY = secret_key_generator.generate()
+# SECRET_KEY = secret_key_generator.generate(chars='django secret',
+#                                            file_name='r',
+#                                            len_of_secret_key=25)
 
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 # development
 if config('MODE')=="dev":
    DATABASES = {
@@ -167,8 +172,8 @@ DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': 'hiresdb',
-    'USER': 'lynne',
-    'PASSWORD':'lynne2022',
+    'USER': 'postgres',
+    'PASSWORD':'lynne',
     }
 }
 
